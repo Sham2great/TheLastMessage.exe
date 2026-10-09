@@ -39,42 +39,44 @@ main{width:min(760px,100%);padding:2.2rem 1rem 3rem;margin:auto;flex:1}.scene-ta
 </section>
 <script>
 const scenes = [
- {tag:"ROOM 01 · HOME",title:"The bedroom",dark:false,caption:"22:46 · STILL AWAKE",text:"The room is quiet, but your head isn't. The day keeps replaying itself in pieces: a sentence you wish you'd said differently, a message you checked too many times, a feeling you couldn't explain without making it sound smaller.",thought:"You don't even know what you need. You only know that being asked \"what's wrong?\" can feel harder than saying nothing.",prompt:"What do you do?",choices:[["Stay with the thought","You let the silence stretch. It doesn't solve anything, but for a moment you stop pretending you have an answer.","family"],["Pick up your phone","The screen lights your face. For a second, the glow feels like company.","phone"]]},
- {tag:"ROOM 02 · THE HOUSE",title:"Full house. Empty seat.",dark:false,caption:"VOICES THROUGH THE WALL",text:"From the next room, you hear laughter and overlapping conversations. Someone calls out a question. Someone else answers. The house is alive with little ordinary moments.",thought:"You are part of this family. You know that. Still, some nights you feel like a guest who has stayed too long, sitting close enough to hear everyone and too far away to feel included.",prompt:"How do you respond?",choices:[["Go sit with them","You join the room. You smile at the right moments. Nobody does anything cruel. That almost makes the distance harder to explain.","phone"],["Stay where you are","You tell yourself you prefer the quiet. Maybe you do. Maybe it's easier than trying to explain a loneliness that has no obvious reason.","phone"]]},
- {tag:"ROOM 03 · THE PHONE",title:"Seen at 2:13",dark:true,caption:"NO NEW NOTIFICATIONS",text:"You open a conversation, then close it. Open it again. You wonder if you said too much, too little, or simply mattered less than you thought.",thought:"The hardest part isn't always that someone leaves. Sometimes it's being left with no explanation, so your mind starts writing one for them. You become both the person waiting and the person trying to convince yourself not to wait.",prompt:"What do you choose?",choices:[["Write what you really mean","You type the honest version. You don't send it yet. At least the words exist somewhere outside your head.","ending"],["Put the phone face down","The room gets darker. Nothing is resolved. But for a few seconds, you aren't asking a screen to tell you what you mean to someone.","ending"]]},
- {tag:"ROOM 04 · WHAT REMAINS",title:"Still here",dark:true,caption:"TIME DOES NOT EXPLAIN ITSELF",text:"The house has gone quiet. The phone is still. The same thoughts haven't magically disappeared just because you've reached the end of this little walk.",thought:"Maybe the people around you care and still don't understand. Maybe someone meant well and still hurt you. Maybe you are tired of turning every feeling into a lesson before you're allowed to feel it.",prompt:"There is no correct answer.",choices:[["Keep sitting here","You don't force a conclusion. You let the moment be unfinished.","final"],["Get up, slowly","Not because everything is fine. Only because the next minute is here, and you are too.","final"]]}
+ {tag:"ROOM 01 · HOME",title:"The bedroom",dark:false,caption:"22:46 · STILL AWAKE",text:"The room is quiet, but your head isn't. The day keeps replaying itself in pieces: a sentence you wish you'd said differently, a message you checked too many times, a feeling you couldn't explain without making it sound smaller.",thought:"You don't even know what you need. You only know that being asked what is wrong can feel harder than saying nothing.",prompt:"What do you do?",choices:[["Stay with the thought","You let the silence stretch. It doesn't solve anything, but for a moment you stop pretending you have an answer.",1],["Pick up your phone","The screen lights your face. For a second, the glow feels like company.",2]]},
+ {tag:"ROOM 02 · THE HOUSE",title:"Full house. Empty seat.",dark:false,caption:"VOICES THROUGH THE WALL",text:"From the next room, you hear laughter and overlapping conversations. Someone calls out a question. Someone else answers. The house is alive with little ordinary moments.",thought:"You are part of this family. You know that. Still, some nights you feel like a guest who has stayed too long, sitting close enough to hear everyone and too far away to feel included.",prompt:"How do you respond?",choices:[["Go sit with them","You join the room. You smile at the right moments. Nobody does anything cruel. That almost makes the distance harder to explain.",2],["Stay where you are","You tell yourself you prefer the quiet. Maybe you do. Maybe it's easier than trying to explain a loneliness that has no obvious reason.",2]]},
+ {tag:"ROOM 03 · THE PHONE",title:"Seen at 2:13",dark:true,caption:"NO NEW NOTIFICATIONS",text:"You open a conversation, then close it. Open it again. You wonder if you said too much, too little, or simply mattered less than you thought.",thought:"The hardest part isn't always that someone leaves. Sometimes it's being left with no explanation, so your mind starts writing one for them. You become both the person waiting and the person trying to convince yourself not to wait.",prompt:"What do you choose?",choices:[["Write what you really mean","You type the honest version. You don't send it yet. At least the words exist somewhere outside your head.",3],["Put the phone face down","The room gets darker. Nothing is resolved. But for a few seconds, you aren't asking a screen to tell you what you mean to someone.",3]]},
+ {tag:"ROOM 04 · WHAT REMAINS",title:"Still here",dark:true,caption:"TIME DOES NOT EXPLAIN ITSELF",text:"The house has gone quiet. The phone is still. The same thoughts haven't magically disappeared just because you've reached the end of this little walk.",thought:"Maybe the people around you care and still don't understand. Maybe someone meant well and still hurt you. Maybe you are tired of turning every feeling into a lesson before you're allowed to feel it.",prompt:"There is no correct answer.",choices:[["Keep sitting here","You don't force a conclusion. You let the moment be unfinished.",4],["Get up, slowly","Not because everything is fine. Only because the next minute is here, and you are too.",4]]}
 ];
-const state={index:0,history:[]};
-const $=id=>document.getElementById(id);
-$("begin").addEventListener("click",()=>{ $("intro").classList.remove("active");$("game").classList.add("active");renderScene(0);window.scrollTo(0,0);});
-function renderScene(index){
- state.index=index;
- const s=scenes[index];
- $("chapter").textContent=String(index+1).padStart(2,"0")+" / 04";
- $("progress").style.width=((index+1)/4*100)+"%";
- const artClass=s.dark?"art dark":"art";
- const buttons=s.choices.map((c,i)=>'<button class="choice" data-choice="'+i+'"><span>CHOICE 0'+(i+1)+'</span>'+c[0]+'</button>').join("");
- $("scene").innerHTML='<div class="scene-tag">'+s.tag+'</div><h2 class="scene-title">'+s.title+'</h2><div class="'+artClass+'" role="img" aria-label="A quiet room in a monochrome illustration"><div class="window"></div><div class="silhouette"></div><div class="room-lines"></div><div class="horizon"></div><div class="caption">'+s.caption+'</div></div><p class="thought">'+s.text+'</p><p class="thought"><em>'+s.thought+'</em></p><div class="prompt">'+s.prompt+'</div><div class="choices">'+buttons+'</div><div class="navrow">'+(index>0?'<button class="quiet" id="back">← Previous room</button>':'<span></span>')+'<button class="quiet" id="restart">Start over</button></div>';
- document.querySelectorAll("[data-choice]").forEach(btn=>btn.addEventListener("click",()=>choose(Number(btn.dataset.choice))));
- if($("back"))$("back").addEventListener("click",()=>renderScene(index-1));
- $("restart").addEventListener("click",restart);
+const $ = id => document.getElementById(id);
+let history = [];
+function startGame() {
+  $("intro").classList.remove("active");
+  $("game").classList.add("active");
+  renderScene(0);
+  window.scrollTo(0,0);
 }
-function choose(choice){
- const s=scenes[state.index], selected=s.choices[choice];
- state.history.push({scene:state.index,choice:choice,label:selected[0]});
- if(selected[1]){const old=$("scene").querySelector(".thought");}
- if(selected[2]==="family"){renderScene(1)}
- else if(selected[2]==="phone"){renderScene(2)}
- else if(selected[2]==="ending"){renderScene(3)}
- else {renderEnding(selected[0])}
- window.scrollTo({top:0,behavior:"smooth"});
+function renderScene(index) {
+  const s = scenes[index];
+  $("chapter").textContent = String(index+1).padStart(2,"0")+" / 04";
+  $("progress").style.width = ((index+1)/4*100)+"%";
+  const buttons = s.choices.map((c,i) => '<button type="button" class="choice" data-next="'+c[2]+'"><span>CHOICE 0'+(i+1)+'</span>'+c[0]+'</button>').join("");
+  $("scene").innerHTML = '<div class="scene-tag">'+s.tag+'</div><h2 class="scene-title">'+s.title+'</h2><div class="art '+(s.dark?'dark':'')+'" role="img" aria-label="A quiet monochrome room"><div class="window"></div><div class="silhouette"></div><div class="room-lines"></div><div class="horizon"></div><div class="caption">'+s.caption+'</div></div><p class="thought">'+s.text+'</p><p class="thought"><em>'+s.thought+'</em></p><div class="prompt">'+s.prompt+'</div><div class="choices">'+buttons+'</div><div class="navrow">'+(index>0?'<button type="button" class="quiet" id="back">← Previous room</button>':'<span></span>')+'<button type="button" class="quiet" id="restart">Start over</button></div>';
+  document.querySelectorAll("[data-next]").forEach(button => button.addEventListener("click", () => {
+    history.push({scene:index,choice:button.textContent});
+    const next = Number(button.dataset.next);
+    if(next === 4) renderEnding(button.textContent.replace(/^CHOICE 0[0-9]/,"").trim());
+    else renderScene(next);
+    window.scrollTo({top:0,behavior:"smooth"});
+  }));
+  if($("back")) $("back").addEventListener("click", () => renderScene(index-1));
+  $("restart").addEventListener("click", restart);
 }
-function renderEnding(choice){
- $("chapter").textContent="04 / 04";$("progress").style.width="100%";
- $("scene").innerHTML='<div class="scene-tag">END · NO NEAT CONCLUSION</div><h2 class="scene-title">The room stays quiet.</h2><div class="art dark"><div class="window"></div><div class="silhouette"></div><div class="room-lines"></div><div class="caption">NO ANSWER REQUIRED</div></div><div class="ending-text"><p>You chose to '+choice.toLowerCase()+'.</p><p>Maybe tomorrow, someone will ask how you are and wait long enough to hear the real answer. Maybe they won't. This story can't promise that.</p><p>It can only leave you here for a moment, with the things that are difficult to say and the parts of you that keep showing up anyway.</p></div><div class="final-line">Nothing is resolved.<br>You're still here.</div><div class="navrow"><button class="quiet" id="replay">Walk through it again</button><button class="primary" id="finish">Leave the room</button></div>';
- $("replay").addEventListener("click",restart);$("finish").addEventListener("click",()=>{$("game").classList.remove("active");$("intro").classList.add("active");window.scrollTo(0,0)});
+function renderEnding(choice) {
+  $("chapter").textContent = "04 / 04";
+  $("progress").style.width = "100%";
+  $("scene").innerHTML = '<div class="scene-tag">END · NO NEAT CONCLUSION</div><h2 class="scene-title">The room stays quiet.</h2><div class="art dark"><div class="window"></div><div class="silhouette"></div><div class="room-lines"></div><div class="caption">NO ANSWER REQUIRED</div></div><div class="ending-text"><p>You chose to '+choice.toLowerCase()+'.</p><p>Maybe tomorrow, someone will ask how you are and wait long enough to hear the real answer. Maybe they won’t. This story can’t promise that.</p><p>It can only leave you here for a moment, with the things that are difficult to say and the parts of you that keep showing up anyway.</p></div><div class="final-line">Nothing is resolved.<br>You're still here.</div><div class="navrow"><button type="button" class="quiet" id="replay">Walk through it again</button><button type="button" class="primary" id="finish">Leave the room</button></div>';
+  $("replay").addEventListener("click",restart);
+  $("finish").addEventListener("click",() => {$("game").classList.remove("active");$("intro").classList.add("active");window.scrollTo(0,0);});
 }
-function restart(){state.index=0;state.history=[];renderScene(0);window.scrollTo(0,0)}
+function restart() {history=[];renderScene(0);window.scrollTo(0,0);}
+$("begin").addEventListener("click",startGame);
 </script>
 </body>
 </html>
