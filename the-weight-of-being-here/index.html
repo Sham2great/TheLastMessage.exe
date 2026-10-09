@@ -28,7 +28,7 @@ main{width:min(760px,100%);padding:2.2rem 1rem 3rem;margin:auto;flex:1}.scene-ta
   <h1>THE WEIGHT<br>OF BEING HERE</h1>
   <p class="subtitle">Some rooms are full of people.<br>That doesn't mean you feel less alone.</p>
   <div class="figure" aria-hidden="true"><div class="head"></div><div class="bodyfigure"></div><div class="leg"></div></div>
-  <button class="primary" id="begin">ENTER THE QUIET</button>
+  <button class="primary" id="begin" type="button" onclick="window.startGame()">ENTER THE QUIET</button>
   <div class="intro-note">TAKE YOUR TIME · THERE IS NO SCORE</div>
 </section>
 <section id="game" class="screen">
@@ -46,12 +46,12 @@ const scenes = [
 ];
 const $ = id => document.getElementById(id);
 let history = [];
-function startGame() {
+window.startGame = function startGame() {
   $("intro").classList.remove("active");
   $("game").classList.add("active");
   renderScene(0);
   window.scrollTo(0,0);
-}
+};
 function renderScene(index) {
   const s = scenes[index];
   $("chapter").textContent = String(index+1).padStart(2,"0")+" / 04";
@@ -76,7 +76,7 @@ function renderEnding(choice) {
   $("finish").addEventListener("click",() => {$("game").classList.remove("active");$("intro").classList.add("active");window.scrollTo(0,0);});
 }
 function restart() {history=[];renderScene(0);window.scrollTo(0,0);}
-$("begin").addEventListener("click",startGame);
+$("begin").addEventListener("click", window.startGame);
 </script>
 </body>
 </html>
