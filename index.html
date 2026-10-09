@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#090909">
+<title>CRUEL WORLD | TheLastMessage.exe</title>
+<style>
+:root{--ink:#080808;--paper:#e9e7e1;--muted:#a8a6a0;--line:#343434;--white:#f7f5ef}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--ink);color:var(--white);font-family:Georgia,'Times New Roman',serif;overflow-x:hidden}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.075;z-index:10;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E")}
+header{min-height:92vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:3rem 1.2rem;position:relative;overflow:hidden;background:radial-gradient(ellipse at 50% 70%,#242424 0, #090909 62%)}
+.kicker{font:10px/1.5 monospace;letter-spacing:.35em;color:#aaa;text-transform:uppercase}
+h1{font:clamp(3.4rem,12vw,8.5rem)/.82 Impact,'Arial Narrow',sans-serif;letter-spacing:-.045em;margin:1.2rem 0;text-shadow:4px 4px 0 #303030}
+.subtitle{font-style:italic;color:#bbb;font-size:clamp(.9rem,2vw,1.1rem);letter-spacing:.06em}
+.header-figure{width:130px;height:175px;margin:2rem auto 0;animation:float 4s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(-9px)}}.scroll-hint{position:absolute;bottom:2rem;font:10px monospace;letter-spacing:.25em;color:#888;animation:pulse 2s infinite}@keyframes pulse{50%{opacity:.35}}
+main{width:min(760px,100%);margin:auto;padding:0 1rem 7rem}.chapter-label{font:10px monospace;letter-spacing:.25em;color:#888;text-transform:uppercase;text-align:center;margin:5rem 0 1.3rem}
+.panel{position:relative;min-height:310px;margin:1.4rem auto;background:var(--paper);color:#111;overflow:hidden;border:1px solid #777;box-shadow:0 12px 35px #0008;display:flex;align-items:center;justify-content:center;padding:1.4rem;isolation:isolate}
+.panel.dark{background:#101010;color:#eee;border-color:#3a3a3a}.panel.wide{min-height:400px}.panel.tall{min-height:470px}
+.panel:after{content:"";position:absolute;inset:0;z-index:-1;opacity:.11;background-image:radial-gradient(#000 0.65px,transparent .65px);background-size:4px 4px}
+.panel.dark:after{opacity:.3;background-image:radial-gradient(#fff 0.5px,transparent .5px)}
+.panel-copy{max-width:390px;font-size:clamp(1.05rem,3.5vw,1.55rem);line-height:1.5;position:relative;z-index:2}
+.panel-copy small{display:block;font:10px monospace;letter-spacing:.18em;text-transform:uppercase;color:#777;margin-bottom:1rem}
+.dark .panel-copy small{color:#999}.thought{font-style:italic}.caption{font:10px monospace;letter-spacing:.12em;text-transform:uppercase;color:#666}
+.figure{width:180px;height:230px;flex-shrink:0;overflow:visible}.figure path,.figure circle,.figure line{stroke:currentColor;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;fill:none}
+.figure .thin{stroke-width:2}.figure .fill{fill:currentColor;stroke:none}
+.composition{display:flex;align-items:center;justify-content:space-evenly;gap:1rem;width:100%;position:relative;z-index:1}.bubble{border:2px solid currentColor;border-radius:50%;padding:1rem 1.1rem;max-width:180px;font-size:1rem;font-style:italic;position:relative}.bubble:after{content:"";position:absolute;bottom:-9px;left:25px;width:14px;height:14px;background:inherit;border-left:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(-45deg)}
+.city{position:absolute;inset:auto 0 0;height:40%;opacity:.35;background:linear-gradient(transparent,#555)}.city:before{content:"";position:absolute;bottom:0;left:0;right:0;height:100%;background:repeating-linear-gradient(90deg,transparent 0 8%,#222 8% 11%,transparent 11% 17%);clip-path:polygon(0 35%,8% 35%,8% 0,17% 0,17% 48%,25% 48%,25% 20%,35% 20%,35% 58%,45% 58%,45% 12%,54% 12%,54% 45%,66% 45%,66% 5%,76% 5%,76% 58%,87% 58%,87% 30%,100% 30%,100% 100%,0 100%)}
+.rain{position:absolute;inset:0;pointer-events:none;opacity:.35;background-image:repeating-linear-gradient(105deg,transparent 0 24px,#aaa 25px,transparent 26px 42px);background-size:100% 100%;animation:rain .5s linear infinite}@keyframes rain{to{background-position:0 30px}}
+.crack{position:absolute;inset:0;opacity:0;background:linear-gradient(118deg,transparent 49.6%,#555 49.8%,transparent 50.2%),linear-gradient(35deg,transparent 59%,#555 59.2%,transparent 59.5%);transition:opacity 1.4s}
+.panel.visible .crack{opacity:.65}.glitch{animation:glitch 3.2s steps(1) infinite}@keyframes glitch{0%,92%,100%{transform:translateX(0)}93%{transform:translateX(2px)}95%{transform:translateX(-3px)}97%{transform:translateX(1px)}}
+.panel .figure{opacity:0;transform:translateY(24px);transition:opacity 1s ease,transform 1s cubic-bezier(.2,.8,.2,1)}.panel.visible .figure{opacity:1;transform:translateY(0)}
+.panel .panel-copy{opacity:0;transform:translateY(10px);transition:opacity .8s .25s,transform .8s .25s}.panel.visible .panel-copy{opacity:1;transform:translateY(0)}
+.heartbeat{animation:heartbeat 1.5s ease-in-out infinite;transform-origin:center}@keyframes heartbeat{0%,100%{transform:scale(1)}12%{transform:scale(1.05)}24%{transform:scale(1)}36%{transform:scale(1.035)}}
+.ending{min-height:80vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;position:relative;padding:3rem 1rem;color:#bbb}.ending h2{font:clamp(2.5rem,8vw,5rem)/.95 Impact,Arial,sans-serif;letter-spacing:-.03em;color:#eee}.ending p{max-width:430px;line-height:1.8}.lastline{margin-top:4rem;color:#fff;font-size:1.25rem;font-style:italic}
+footer{text-align:center;padding:2rem 1rem;color:#666;font:10px monospace;letter-spacing:.15em;border-top:1px solid #222}
+@media(max-width:520px){.panel{padding:1rem;min-height:350px}.panel.wide{min-height:420px}.figure{width:135px;height:185px}.composition{gap:.3rem}.bubble{max-width:145px;padding:.7rem;font-size:.9rem}.panel-copy{font-size:1.1rem}.panel.tall{min-height:450px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;scroll-behavior:auto!important;transition:none!important}}
+</style>
+</head>
+<body>
+<header>
+  <div class="kicker">An unfinished record of a real feeling</div>
+  <h1>CRUEL<br>WORLD</h1>
+  <div class="subtitle">a story told by the things left unsaid</div>
+  <svg class="header-figure" viewBox="0 0 120 170" aria-label="A lonely stickman"><g stroke="#e9e7e1" stroke-width="3" stroke-linecap="round" fill="none"><circle cx="60" cy="28" r="15"/><path d="M60 43 L60 96 M60 57 L35 79 M60 57 L83 74 M60 96 L42 132 M60 96 L78 132"/></g><path d="M45 22 Q60 13 75 22" stroke="#777" fill="none" stroke-width="2"/></svg>
+  <div class="scroll-hint">SCROLL TO ENTER ↓</div>
+</header>
+<main>
+  <div class="chapter-label">Prologue · The quiet before</div>
+  <section class="panel wide">
+    <div class="city"></div><div class="composition">
+      <svg class="figure" viewBox="0 0 180 230"><g><circle cx="90" cy="40" r="20"/><path d="M90 60 L90 130 L63 184 M90 130 L119 184 M90 79 L53 111 M90 79 L126 105"/></g></svg>
+      <div class="panel-copy"><small>01 / outside</small>Everybody kept moving.<br><span class="thought">I was still trying to understand where I went wrong.</span></div>
+    </div>
+  </section>
+  <section class="panel">
+    <div class="composition"><div class="panel-copy"><small>02 / the habit</small>I learned to read pauses, changes in tone, and words that never came.</div><svg class="figure" viewBox="0 0 180 230"><g><circle cx="90" cy="35" r="19"/><path d="M90 54 L90 126 L60 180 M90 126 L116 180 M90 75 L48 91 M90 75 L130 65"/></g><path class="thin" d="M112 22 q22 -15 35 1 q-7 10 -19 9"/></svg></div>
+  </section>
+  <section class="panel dark">
+    <div class="composition"><svg class="figure" viewBox="0 0 180 230"><g><circle cx="90" cy="40" r="20"/><path d="M90 60 L90 130 L63 181 M90 130 L119 181 M90 78 L54 109 M90 78 L126 109"/></g></svg><div class="panel-copy"><small>03 / what I wanted</small><span class="thought">I wasn't asking people to be perfect. I wanted honesty. Effort. A reason not to keep guessing.</span></div></div>
+  </section>
+  <div class="chapter-label">Chapter I · Things that stayed</div>
+  <section class="panel wide">
+    <div class="composition"><div class="panel-copy"><small>04 / memory</small>Some things were my fault. Some things were never mine to fix. I kept carrying both until I couldn't tell them apart.</div><svg class="figure" viewBox="0 0 180 230"><g><circle cx="90" cy="39" r="20"/><path d="M90 59 L90 129 L60 180 M90 129 L120 180 M90 78 L52 111 M90 78 L130 111"/></g><path class="thin" d="M65 34 q25 -22 50 0"/></svg></div>
+  </section>
+  <section class="panel dark">
+    <div class="composition"><svg class="figure" viewBox="0 0 180 230"><g><circle cx="90" cy="39" r="20"/><path d="M90 59 L90 129 L65 179 M90 129 L113 179 M90 78 L54 109 M90 78 L127 106"/></g></svg><div class="panel-copy"><small>05 / almost</small>Sometimes I could see the kind of connection I wanted right in front of me.<br><br><span class="thought">Wanting it didn't mean it could happen.</span></div></div>
+  </section>
+  <section class="panel">
+    <div class="composition"><div class="panel-copy"><small>06 / no answer</small>I kept hoping for one clear explanation. Something real to hold instead of a hundred possibilities.</div><svg class="figure" viewBox="0 0 180 230"><g><circle cx="90" cy="40" r="20"/><path d="M90 60 L90 128 L62 181 M90 128 L118 181 M90 78 L53 109 M90 78 L125 109"/></g><path class="thin" d="M118 26 q20 -18 34 0 q-8 10 -18 8"/></svg></div>
+  </section>
+  <div class="chapter-label">Final chapter · Everything gets quieter</div>
+  <section class="panel dark tall">
+    <div class="rain"></div><div class="composition"><svg class="figure" viewBox="0 0 180 230"><g><circle cx="90" cy="40" r="20"/><path d="M90 60 L90 128 L65 181 M90 128 L116 181 M90 79 L57 106 M90 79 L123 104"/></g></svg><div class="panel-copy"><small>07 / the weight</small>Then the days began to blur together. The messages, the memories, the questions I couldn't settle.<br><br>Even resting didn't always feel like rest.</div></div>
+  </section>
+  <section class="panel wide">
+    <div class="crack"></div><div class="composition"><div class="panel-copy"><small>08 / the body</small>I was so busy trying to make sense of everything in my head that I started noticing how worn out I felt in my body, too.<br><br><span class="thought">I couldn't keep pretending that nothing was happening.</span></div><svg class="figure heartbeat" viewBox="0 0 180 230"><g><circle cx="90" cy="40" r="20"/><path d="M90 60 L90 128 L65 181 M90 128 L116 181 M90 79 L57 106 M90 79 L123 104"/></g><path class="thin" d="M75 44 l8 4 7 -8"/></svg></div>
+  </section>
+  <section class="panel dark tall">
+    <div class="rain"></div><div class="crack"></div><div class="composition"><svg class="figure" viewBox="0 0 180 230"><g><circle cx="90" cy="40" r="20"/><path d="M90 60 L90 128 L65 181 M90 128 L116 181 M90 79 L57 106 M90 79 L123 104"/></g></svg><div class="panel-copy glitch"><small>09 / everything, at once</small>The future felt far away. People felt far away. Even the person I used to be felt like someone I only half remembered.<br><br>I didn't have a beautiful explanation for it.<br><br>I was tired.</div></div>
+  </section>
+  <section class="panel dark">
+    <div class="composition"><div class="panel-copy"><small>10 / the last message</small>I wanted someone to notice without making me explain every little piece of it.<br><br>But maybe I had to start by admitting it to myself.</div><svg class="figure" viewBox="0 0 180 230"><g><circle cx="90" cy="40" r="20"/><path d="M90 60 L90 128 L65 181 M90 128 L116 181 M90 79 L57 106 M90 79 L123 104"/></g><path class="thin" d="M110 25 q17 -14 30 0"/></svg></div>
+  </section>
+  <section class="ending">
+    <div class="kicker">End of the chapter</div>
+    <h2>TO BE<br>CONTINUED?</h2>
+    <p>The world did not suddenly become kinder. The problems did not disappear because the page ended.</p>
+    <p>But this is a record of a hard chapter, not proof that every chapter after it must be the same.</p>
+    <div class="lastline">“For once, I don't need to understand everything tonight.”</div>
+  </section>
+</main>
+<footer>THELASTMESSAGE.EXE · CRUEL WORLD · A PERSONAL MANGA PROJECT</footer>
+<script>
+const panels = document.querySelectorAll('.panel');
+if ('IntersectionObserver' in window) {
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {threshold: 0.18});
+  panels.forEach(panel => observer.observe(panel));
+} else {
+  panels.forEach(panel => panel.classList.add('visible'));
+}
+</script>
+</body>
+</html>
