@@ -87,6 +87,34 @@ footer{text-align:center;padding:2rem 1rem;color:#666;font:10px monospace;letter
 
 @media(max-width:520px){.panel{padding:1rem;min-height:350px}.panel.wide{min-height:420px}.figure{width:135px;height:185px}.composition{gap:.3rem}.bubble{max-width:145px;padding:.7rem;font-size:.9rem}.panel-copy{font-size:1.1rem}.panel.tall{min-height:450px}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;scroll-behavior:auto!important;transition:none!important}}
+
+/* MANGA PANEL + CHAT BUBBLE REDESIGN */
+:root{--paper:#efeee9;--white:#f7f6f2}
+.panel{border:2px solid #090909;box-shadow:5px 6px 0 #6668,0 16px 38px #0009}
+.panel.dark{border:2px solid #777;box-shadow:5px 6px 0 #292929,0 16px 38px #0009}
+.panel:after{background-image:radial-gradient(#111 0.7px,transparent .7px);background-size:3px 3px;opacity:.17}
+.panel.dark:after{background-image:radial-gradient(#eee .6px,transparent .6px);background-size:4px 4px;opacity:.13}
+.figure{filter:contrast(1.15)}
+.figure .manga-person{transform-origin:90px 115px}
+.dialogue-strip{position:absolute;z-index:4;left:1rem;right:1rem;bottom:1rem;display:flex;align-items:flex-end;justify-content:space-between;gap:.65rem;pointer-events:none}
+.chat{display:block;max-width:68%;padding:.65rem .8rem;background:#f8f7f2;color:#111;border:2px solid #111;font:600 clamp(.72rem,2.6vw,.92rem)/1.35 Arial,sans-serif;box-shadow:3px 3px 0 #1118;position:relative;animation:chatFloat 3s ease-in-out infinite}
+.chat:after{content:"";position:absolute;bottom:-8px;left:18px;width:12px;height:12px;background:#f8f7f2;border-right:2px solid #111;border-bottom:2px solid #111;transform:rotate(45deg)}
+.chat.outgoing{margin-left:auto;background:#171717;color:#f7f6f2;border-color:#f7f6f2}
+.chat.outgoing:after{background:#171717;border-color:#f7f6f2;left:auto;right:18px}
+.chat.thought-chat{border-radius:22px;font-style:italic;font-weight:500}
+.chat.thought-chat:after{width:8px;height:8px;bottom:-12px;left:28px;border-radius:50%;box-shadow:-7px 7px 0 -2px #f8f7f2}
+.panel.dark .chat{box-shadow:3px 3px 0 #777}
+@keyframes chatFloat{0%,100%{translate:0 0}50%{translate:0 -3px}}
+.panel.visible .dialogue-strip .chat{animation:chatEnter .6s .55s cubic-bezier(.2,1.3,.4,1) both,chatFloat 3s 1.2s ease-in-out infinite}
+@keyframes chatEnter{from{opacity:0;transform:scale(.72) translateY(12px)}to{opacity:1;transform:scale(1) translateY(0)}}
+.panel-copy{z-index:2;text-shadow:0 0 1px currentColor}
+.panel .composition{padding-bottom:3.2rem}
+header .header-figure{width:150px;height:200px;filter:drop-shadow(7px 8px 0 #5555);animation:float 3.2s ease-in-out infinite}
+.kicker{font-weight:bold}
+.chapter-label{position:relative;text-shadow:0 0 8px #aaa3}
+@media(max-width:520px){.dialogue-strip{left:.65rem;right:.65rem;bottom:.7rem;gap:.45rem}.chat{max-width:75%;padding:.55rem .6rem}.panel .composition{padding-bottom:3.7rem}.figure{width:125px;height:170px}}
+@media(prefers-reduced-motion:reduce){.chat,.panel.visible .dialogue-strip .chat{animation:none!important}}
+
 </style>
 </head>
 <body>
@@ -94,46 +122,184 @@ footer{text-align:center;padding:2rem 1rem;color:#666;font:10px monospace;letter
   <div class="kicker">An unfinished record of a real feeling</div>
   <h1>CRUEL<br>WORLD</h1>
   <div class="subtitle">a story told by the things left unsaid</div>
-  <svg class="header-figure" viewBox="0 0 120 170" aria-label="A lonely stickman"><g stroke="#e9e7e1" stroke-width="3" stroke-linecap="round" fill="none"><circle cx="60" cy="28" r="15"/><path d="M60 43 L60 96 M60 57 L35 79 M60 57 L83 74 M60 96 L42 132 M60 96 L78 132"/></g><path d="M45 22 Q60 13 75 22" stroke="#777" fill="none" stroke-width="2"/></svg>
+  <svg class="header-figure" viewBox="0 0 120 170" aria-label="Manga protagonist in shadow">
+  <g stroke="#e9e7e1" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M25 55 Q13 28 36 11 Q60 -2 81 15 Q103 27 94 57 L83 44 L70 49 L57 37 L40 52 L31 65 Z" fill="#090909" stroke-width="2.5"/>
+    <path d="M34 41 Q37 21 57 20 Q78 22 82 42 L78 66 Q70 82 57 82 Q42 78 37 61 Z" fill="#d9d7d1" stroke-width="2"/>
+    <path d="M40 48 L51 46 M64 46 L76 48 M53 48 L51 54 M66 48 L68 54 M52 65 Q59 68 67 64" fill="none" stroke="#111" stroke-width="2.4"/>
+    <path d="M43 80 L43 92 L71 92 L71 80 M43 91 Q24 96 18 121 L12 170 L105 170 L96 121 Q89 96 71 91 L57 106 Z" fill="#171717" stroke-width="2.5"/>
+    <path d="M43 93 L57 106 L71 93 M57 106 L53 134 L62 134 Z" fill="#e9e7e1" stroke-width="1.5"/>
+  </g>
+</svg>
   <div class="scroll-hint">SCROLL TO ENTER ↓</div>
 </header>
 <main>
   <div class="chapter-label">Prologue · The quiet before</div>
   <section class="panel wide">
     <div class="city"></div><div class="composition">
-      <svg class="figure" viewBox="0 0 180 230"><g><circle cx="90" cy="40" r="20"/><path d="M90 60 L90 130 L63 184 M90 130 L119 184 M90 79 L53 111 M90 79 L126 105"/></g></svg>
+      <svg class="figure" viewBox="0 0 180 230" role="img" aria-label="Black and white manga character"><g class="manga-person" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M66 54 Q54 35 67 19 Q76 4 96 12 Q118 13 120 34 L114 57 L103 48 L75 51 Z" fill="#111" stroke-width="3"/>
+  <path d="M72 33 Q71 18 89 17 Q109 18 111 35 L108 53 Q103 68 91 68 Q77 65 72 49 Z" fill="#f2f0ea" stroke-width="2.8"/>
+  <path d="M70 34 L59 26 L69 45 L62 45 L76 54 L77 34 M108 31 L121 24 L114 42 L123 42 L108 53" fill="#111" stroke-width="2.5"/>
+  <path d="M78 42 Q84 38 89 42 M96 42 Q102 38 106 42" fill="none" stroke-width="2.5"/>
+  <path d="M82 47 L80 50 M101 47 L103 50 M87 58 Q94 61 100 57" fill="none" stroke-width="2"/>
+  <path d="M83 67 L83 78 L101 78 L101 66" fill="#f2f0ea" stroke-width="2.5"/>
+  <path d="M83 76 L68 81 L54 123 L62 151 L120 151 L130 121 L114 82 L101 76 L92 89 Z" fill="#252525" stroke-width="3"/>
+  <path d="M84 78 L92 91 L101 78 M92 91 L88 121 L98 121 L92 91" fill="#f2f0ea" stroke-width="2"/>
+  <path d="M68 84 L51 103 L39 131 Q38 138 45 140 Q51 140 54 133 L72 111 M115 84 L131 105 L140 129 Q143 137 136 140 Q130 141 127 133 L109 111" fill="#252525" stroke-width="3"/>
+  <path d="M68 147 L66 184 L60 210 L78 210 L91 165 L103 210 L121 210 L116 181 L120 147" fill="#111" stroke-width="3"/>
+  <path d="M59 211 L78 211 M103 211 L122 211" fill="none" stroke-width="4"/>
+  <path d="M72 91 L78 103 M112 91 L106 103" fill="none" stroke="#aaa" stroke-width="1.5"/>
+</g></svg>
       <div class="panel-copy"><small>01 / outside</small>Everybody kept moving.<br><span class="thought">I was still trying to understand where I went wrong.</span></div>
     </div>
-  </section>
+  <div class="dialogue-strip"><span class="chat incoming">“You good?”</span><span class="chat thought-chat">“I don't know how to explain it.”</span></div></section>
   <section class="panel">
-    <div class="composition"><div class="panel-copy"><small>02 / the habit</small>I learned to read pauses, changes in tone, and words that never came.</div><svg class="figure" viewBox="0 0 180 230"><g><circle cx="90" cy="35" r="19"/><path d="M90 54 L90 126 L60 180 M90 126 L116 180 M90 75 L48 91 M90 75 L130 65"/></g><path class="thin" d="M112 22 q22 -15 35 1 q-7 10 -19 9"/></svg></div>
-  </section>
+    <div class="composition"><div class="panel-copy"><small>02 / the habit</small>I learned to read pauses, changes in tone, and words that never came.</div><svg class="figure" viewBox="0 0 180 230" role="img" aria-label="Black and white manga character"><g class="manga-person" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M66 54 Q54 35 67 19 Q76 4 96 12 Q118 13 120 34 L114 57 L103 48 L75 51 Z" fill="#111" stroke-width="3"/>
+  <path d="M72 33 Q71 18 89 17 Q109 18 111 35 L108 53 Q103 68 91 68 Q77 65 72 49 Z" fill="#f2f0ea" stroke-width="2.8"/>
+  <path d="M70 34 L59 26 L69 45 L62 45 L76 54 L77 34 M108 31 L121 24 L114 42 L123 42 L108 53" fill="#111" stroke-width="2.5"/>
+  <path d="M78 42 Q84 38 89 42 M96 42 Q102 38 106 42" fill="none" stroke-width="2.5"/>
+  <path d="M82 47 L80 50 M101 47 L103 50 M87 58 Q94 61 100 57" fill="none" stroke-width="2"/>
+  <path d="M83 67 L83 78 L101 78 L101 66" fill="#f2f0ea" stroke-width="2.5"/>
+  <path d="M83 76 L68 81 L54 123 L62 151 L120 151 L130 121 L114 82 L101 76 L92 89 Z" fill="#252525" stroke-width="3"/>
+  <path d="M84 78 L92 91 L101 78 M92 91 L88 121 L98 121 L92 91" fill="#f2f0ea" stroke-width="2"/>
+  <path d="M68 84 L51 103 L39 131 Q38 138 45 140 Q51 140 54 133 L72 111 M115 84 L131 105 L140 129 Q143 137 136 140 Q130 141 127 133 L109 111" fill="#252525" stroke-width="3"/>
+  <path d="M68 147 L66 184 L60 210 L78 210 L91 165 L103 210 L121 210 L116 181 L120 147" fill="#111" stroke-width="3"/>
+  <path d="M59 211 L78 211 M103 211 L122 211" fill="none" stroke-width="4"/>
+  <path d="M72 91 L78 103 M112 91 L106 103" fill="none" stroke="#aaa" stroke-width="1.5"/>
+</g></svg></div>
+  <div class="dialogue-strip"><span class="chat incoming">“Just tell me the truth.”</span><span class="chat outgoing">“I'm trying.”</span></div></section>
   <section class="panel dark">
-    <div class="composition"><svg class="figure" viewBox="0 0 180 230"><g><circle cx="90" cy="40" r="20"/><path d="M90 60 L90 130 L63 181 M90 130 L119 181 M90 78 L54 109 M90 78 L126 109"/></g></svg><div class="panel-copy"><small>03 / what I wanted</small><span class="thought">I wasn't asking people to be perfect. I wanted honesty. Effort. A reason not to keep guessing.</span></div></div>
-  </section>
+    <div class="composition"><svg class="figure" viewBox="0 0 180 230" role="img" aria-label="Black and white manga character"><g class="manga-person" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M66 54 Q54 35 67 19 Q76 4 96 12 Q118 13 120 34 L114 57 L103 48 L75 51 Z" fill="#111" stroke-width="3"/>
+  <path d="M72 33 Q71 18 89 17 Q109 18 111 35 L108 53 Q103 68 91 68 Q77 65 72 49 Z" fill="#f2f0ea" stroke-width="2.8"/>
+  <path d="M70 34 L59 26 L69 45 L62 45 L76 54 L77 34 M108 31 L121 24 L114 42 L123 42 L108 53" fill="#111" stroke-width="2.5"/>
+  <path d="M78 42 Q84 38 89 42 M96 42 Q102 38 106 42" fill="none" stroke-width="2.5"/>
+  <path d="M82 47 L80 50 M101 47 L103 50 M87 58 Q94 61 100 57" fill="none" stroke-width="2"/>
+  <path d="M83 67 L83 78 L101 78 L101 66" fill="#f2f0ea" stroke-width="2.5"/>
+  <path d="M83 76 L68 81 L54 123 L62 151 L120 151 L130 121 L114 82 L101 76 L92 89 Z" fill="#252525" stroke-width="3"/>
+  <path d="M84 78 L92 91 L101 78 M92 91 L88 121 L98 121 L92 91" fill="#f2f0ea" stroke-width="2"/>
+  <path d="M68 84 L51 103 L39 131 Q38 138 45 140 Q51 140 54 133 L72 111 M115 84 L131 105 L140 129 Q143 137 136 140 Q130 141 127 133 L109 111" fill="#252525" stroke-width="3"/>
+  <path d="M68 147 L66 184 L60 210 L78 210 L91 165 L103 210 L121 210 L116 181 L120 147" fill="#111" stroke-width="3"/>
+  <path d="M59 211 L78 211 M103 211 L122 211" fill="none" stroke-width="4"/>
+  <path d="M72 91 L78 103 M112 91 L106 103" fill="none" stroke="#aaa" stroke-width="1.5"/>
+</g></svg><div class="panel-copy"><small>03 / what I wanted</small><span class="thought">I wasn't asking people to be perfect. I wanted honesty. Effort. A reason not to keep guessing.</span></div></div>
+  <div class="dialogue-strip"><span class="chat thought-chat">“I wasn't asking for perfect.”</span></div></section>
   <div class="chapter-label">Chapter I · Things that stayed</div>
   <section class="panel wide">
-    <div class="composition"><div class="panel-copy"><small>04 / memory</small>Some things were my fault. Some things were never mine to fix. I kept carrying both until I couldn't tell them apart.</div><svg class="figure" viewBox="0 0 180 230"><g><circle cx="90" cy="39" r="20"/><path d="M90 59 L90 129 L60 180 M90 129 L120 180 M90 78 L52 111 M90 78 L130 111"/></g><path class="thin" d="M65 34 q25 -22 50 0"/></svg></div>
-  </section>
+    <div class="composition"><div class="panel-copy"><small>04 / memory</small>Some things were my fault. Some things were never mine to fix. I kept carrying both until I couldn't tell them apart.</div><svg class="figure" viewBox="0 0 180 230" role="img" aria-label="Black and white manga character"><g class="manga-person" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M66 54 Q54 35 67 19 Q76 4 96 12 Q118 13 120 34 L114 57 L103 48 L75 51 Z" fill="#111" stroke-width="3"/>
+  <path d="M72 33 Q71 18 89 17 Q109 18 111 35 L108 53 Q103 68 91 68 Q77 65 72 49 Z" fill="#f2f0ea" stroke-width="2.8"/>
+  <path d="M70 34 L59 26 L69 45 L62 45 L76 54 L77 34 M108 31 L121 24 L114 42 L123 42 L108 53" fill="#111" stroke-width="2.5"/>
+  <path d="M78 42 Q84 38 89 42 M96 42 Q102 38 106 42" fill="none" stroke-width="2.5"/>
+  <path d="M82 47 L80 50 M101 47 L103 50 M87 58 Q94 61 100 57" fill="none" stroke-width="2"/>
+  <path d="M83 67 L83 78 L101 78 L101 66" fill="#f2f0ea" stroke-width="2.5"/>
+  <path d="M83 76 L68 81 L54 123 L62 151 L120 151 L130 121 L114 82 L101 76 L92 89 Z" fill="#252525" stroke-width="3"/>
+  <path d="M84 78 L92 91 L101 78 M92 91 L88 121 L98 121 L92 91" fill="#f2f0ea" stroke-width="2"/>
+  <path d="M68 84 L51 103 L39 131 Q38 138 45 140 Q51 140 54 133 L72 111 M115 84 L131 105 L140 129 Q143 137 136 140 Q130 141 127 133 L109 111" fill="#252525" stroke-width="3"/>
+  <path d="M68 147 L66 184 L60 210 L78 210 L91 165 L103 210 L121 210 L116 181 L120 147" fill="#111" stroke-width="3"/>
+  <path d="M59 211 L78 211 M103 211 L122 211" fill="none" stroke-width="4"/>
+  <path d="M72 91 L78 103 M112 91 L106 103" fill="none" stroke="#aaa" stroke-width="1.5"/>
+</g></svg></div>
+  <div class="dialogue-strip"><span class="chat incoming">“You can't fix everything for everyone.”</span></div></section>
   <section class="panel dark">
-    <div class="composition"><svg class="figure" viewBox="0 0 180 230"><g><circle cx="90" cy="39" r="20"/><path d="M90 59 L90 129 L65 179 M90 129 L113 179 M90 78 L54 109 M90 78 L127 106"/></g></svg><div class="panel-copy"><small>05 / almost</small>Sometimes I could see the kind of connection I wanted right in front of me.<br><br><span class="thought">Wanting it didn't mean it could happen.</span></div></div>
-  </section>
+    <div class="composition"><svg class="figure" viewBox="0 0 180 230" role="img" aria-label="Black and white manga character"><g class="manga-person" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M66 54 Q54 35 67 19 Q76 4 96 12 Q118 13 120 34 L114 57 L103 48 L75 51 Z" fill="#111" stroke-width="3"/>
+  <path d="M72 33 Q71 18 89 17 Q109 18 111 35 L108 53 Q103 68 91 68 Q77 65 72 49 Z" fill="#f2f0ea" stroke-width="2.8"/>
+  <path d="M70 34 L59 26 L69 45 L62 45 L76 54 L77 34 M108 31 L121 24 L114 42 L123 42 L108 53" fill="#111" stroke-width="2.5"/>
+  <path d="M78 42 Q84 38 89 42 M96 42 Q102 38 106 42" fill="none" stroke-width="2.5"/>
+  <path d="M82 47 L80 50 M101 47 L103 50 M87 58 Q94 61 100 57" fill="none" stroke-width="2"/>
+  <path d="M83 67 L83 78 L101 78 L101 66" fill="#f2f0ea" stroke-width="2.5"/>
+  <path d="M83 76 L68 81 L54 123 L62 151 L120 151 L130 121 L114 82 L101 76 L92 89 Z" fill="#252525" stroke-width="3"/>
+  <path d="M84 78 L92 91 L101 78 M92 91 L88 121 L98 121 L92 91" fill="#f2f0ea" stroke-width="2"/>
+  <path d="M68 84 L51 103 L39 131 Q38 138 45 140 Q51 140 54 133 L72 111 M115 84 L131 105 L140 129 Q143 137 136 140 Q130 141 127 133 L109 111" fill="#252525" stroke-width="3"/>
+  <path d="M68 147 L66 184 L60 210 L78 210 L91 165 L103 210 L121 210 L116 181 L120 147" fill="#111" stroke-width="3"/>
+  <path d="M59 211 L78 211 M103 211 L122 211" fill="none" stroke-width="4"/>
+  <path d="M72 91 L78 103 M112 91 L106 103" fill="none" stroke="#aaa" stroke-width="1.5"/>
+</g></svg><div class="panel-copy"><small>05 / almost</small>Sometimes I could see the kind of connection I wanted right in front of me.<br><br><span class="thought">Wanting it didn't mean it could happen.</span></div></div>
+  <div class="dialogue-strip"><span class="chat thought-chat">“Maybe the timing was never ours.”</span></div></section>
   <section class="panel">
-    <div class="composition"><div class="panel-copy"><small>06 / no answer</small>I kept hoping for one clear explanation. Something real to hold instead of a hundred possibilities.</div><svg class="figure" viewBox="0 0 180 230"><g><circle cx="90" cy="40" r="20"/><path d="M90 60 L90 128 L62 181 M90 128 L118 181 M90 78 L53 109 M90 78 L125 109"/></g><path class="thin" d="M118 26 q20 -18 34 0 q-8 10 -18 8"/></svg></div>
-  </section>
+    <div class="composition"><div class="panel-copy"><small>06 / no answer</small>I kept hoping for one clear explanation. Something real to hold instead of a hundred possibilities.</div><svg class="figure" viewBox="0 0 180 230" role="img" aria-label="Black and white manga character"><g class="manga-person" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M66 54 Q54 35 67 19 Q76 4 96 12 Q118 13 120 34 L114 57 L103 48 L75 51 Z" fill="#111" stroke-width="3"/>
+  <path d="M72 33 Q71 18 89 17 Q109 18 111 35 L108 53 Q103 68 91 68 Q77 65 72 49 Z" fill="#f2f0ea" stroke-width="2.8"/>
+  <path d="M70 34 L59 26 L69 45 L62 45 L76 54 L77 34 M108 31 L121 24 L114 42 L123 42 L108 53" fill="#111" stroke-width="2.5"/>
+  <path d="M78 42 Q84 38 89 42 M96 42 Q102 38 106 42" fill="none" stroke-width="2.5"/>
+  <path d="M82 47 L80 50 M101 47 L103 50 M87 58 Q94 61 100 57" fill="none" stroke-width="2"/>
+  <path d="M83 67 L83 78 L101 78 L101 66" fill="#f2f0ea" stroke-width="2.5"/>
+  <path d="M83 76 L68 81 L54 123 L62 151 L120 151 L130 121 L114 82 L101 76 L92 89 Z" fill="#252525" stroke-width="3"/>
+  <path d="M84 78 L92 91 L101 78 M92 91 L88 121 L98 121 L92 91" fill="#f2f0ea" stroke-width="2"/>
+  <path d="M68 84 L51 103 L39 131 Q38 138 45 140 Q51 140 54 133 L72 111 M115 84 L131 105 L140 129 Q143 137 136 140 Q130 141 127 133 L109 111" fill="#252525" stroke-width="3"/>
+  <path d="M68 147 L66 184 L60 210 L78 210 L91 165 L103 210 L121 210 L116 181 L120 147" fill="#111" stroke-width="3"/>
+  <path d="M59 211 L78 211 M103 211 L122 211" fill="none" stroke-width="4"/>
+  <path d="M72 91 L78 103 M112 91 L106 103" fill="none" stroke="#aaa" stroke-width="1.5"/>
+</g></svg></div>
+  <div class="dialogue-strip"><span class="chat incoming">“Can you just explain?”</span><span class="chat outgoing">“I don't know what to say.”</span></div></section>
   <div class="chapter-label">Final chapter · Everything gets quieter</div>
   <section class="panel dark tall impact">
-    <div class="rain"></div><div class="composition"><svg class="figure" viewBox="0 0 180 230"><g><circle cx="90" cy="40" r="20"/><path d="M90 60 L90 128 L65 181 M90 128 L116 181 M90 79 L57 106 M90 79 L123 104"/></g></svg><div class="panel-copy"><small>07 / the weight</small>Then the days began to blur together. The messages, the memories, the questions I couldn't settle.<br><br>Even resting didn't always feel like rest.</div></div>
-  </section>
+    <div class="rain"></div><div class="composition"><svg class="figure" viewBox="0 0 180 230" role="img" aria-label="Black and white manga character"><g class="manga-person" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M66 54 Q54 35 67 19 Q76 4 96 12 Q118 13 120 34 L114 57 L103 48 L75 51 Z" fill="#111" stroke-width="3"/>
+  <path d="M72 33 Q71 18 89 17 Q109 18 111 35 L108 53 Q103 68 91 68 Q77 65 72 49 Z" fill="#f2f0ea" stroke-width="2.8"/>
+  <path d="M70 34 L59 26 L69 45 L62 45 L76 54 L77 34 M108 31 L121 24 L114 42 L123 42 L108 53" fill="#111" stroke-width="2.5"/>
+  <path d="M78 42 Q84 38 89 42 M96 42 Q102 38 106 42" fill="none" stroke-width="2.5"/>
+  <path d="M82 47 L80 50 M101 47 L103 50 M87 58 Q94 61 100 57" fill="none" stroke-width="2"/>
+  <path d="M83 67 L83 78 L101 78 L101 66" fill="#f2f0ea" stroke-width="2.5"/>
+  <path d="M83 76 L68 81 L54 123 L62 151 L120 151 L130 121 L114 82 L101 76 L92 89 Z" fill="#252525" stroke-width="3"/>
+  <path d="M84 78 L92 91 L101 78 M92 91 L88 121 L98 121 L92 91" fill="#f2f0ea" stroke-width="2"/>
+  <path d="M68 84 L51 103 L39 131 Q38 138 45 140 Q51 140 54 133 L72 111 M115 84 L131 105 L140 129 Q143 137 136 140 Q130 141 127 133 L109 111" fill="#252525" stroke-width="3"/>
+  <path d="M68 147 L66 184 L60 210 L78 210 L91 165 L103 210 L121 210 L116 181 L120 147" fill="#111" stroke-width="3"/>
+  <path d="M59 211 L78 211 M103 211 L122 211" fill="none" stroke-width="4"/>
+  <path d="M72 91 L78 103 M112 91 L106 103" fill="none" stroke="#aaa" stroke-width="1.5"/>
+</g></svg><div class="panel-copy"><small>07 / the weight</small>Then the days began to blur together. The messages, the memories, the questions I couldn't settle.<br><br>Even resting didn't always feel like rest.</div></div>
+  <div class="dialogue-strip"><span class="chat thought-chat">“I'm tired of pretending I'm okay.”</span></div></section>
   <section class="panel wide">
-    <div class="crack"></div><div class="composition"><div class="panel-copy"><small>08 / the body</small>I was so busy trying to make sense of everything in my head that I started noticing how worn out I felt in my body, too.<br><br><span class="thought">I couldn't keep pretending that nothing was happening.</span></div><svg class="figure heartbeat" viewBox="0 0 180 230"><g><circle cx="90" cy="40" r="20"/><path d="M90 60 L90 128 L65 181 M90 128 L116 181 M90 79 L57 106 M90 79 L123 104"/></g><path class="thin" d="M75 44 l8 4 7 -8"/></svg></div>
-  </section>
+    <div class="crack"></div><div class="composition"><div class="panel-copy"><small>08 / the body</small>I was so busy trying to make sense of everything in my head that I started noticing how worn out I felt in my body, too.<br><br><span class="thought">I couldn't keep pretending that nothing was happening.</span></div><svg class="figure heartbeat" viewBox="0 0 180 230" role="img" aria-label="Black and white manga character"><g class="manga-person" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M66 54 Q54 35 67 19 Q76 4 96 12 Q118 13 120 34 L114 57 L103 48 L75 51 Z" fill="#111" stroke-width="3"/>
+  <path d="M72 33 Q71 18 89 17 Q109 18 111 35 L108 53 Q103 68 91 68 Q77 65 72 49 Z" fill="#f2f0ea" stroke-width="2.8"/>
+  <path d="M70 34 L59 26 L69 45 L62 45 L76 54 L77 34 M108 31 L121 24 L114 42 L123 42 L108 53" fill="#111" stroke-width="2.5"/>
+  <path d="M78 42 Q84 38 89 42 M96 42 Q102 38 106 42" fill="none" stroke-width="2.5"/>
+  <path d="M82 47 L80 50 M101 47 L103 50 M87 58 Q94 61 100 57" fill="none" stroke-width="2"/>
+  <path d="M83 67 L83 78 L101 78 L101 66" fill="#f2f0ea" stroke-width="2.5"/>
+  <path d="M83 76 L68 81 L54 123 L62 151 L120 151 L130 121 L114 82 L101 76 L92 89 Z" fill="#252525" stroke-width="3"/>
+  <path d="M84 78 L92 91 L101 78 M92 91 L88 121 L98 121 L92 91" fill="#f2f0ea" stroke-width="2"/>
+  <path d="M68 84 L51 103 L39 131 Q38 138 45 140 Q51 140 54 133 L72 111 M115 84 L131 105 L140 129 Q143 137 136 140 Q130 141 127 133 L109 111" fill="#252525" stroke-width="3"/>
+  <path d="M68 147 L66 184 L60 210 L78 210 L91 165 L103 210 L121 210 L116 181 L120 147" fill="#111" stroke-width="3"/>
+  <path d="M59 211 L78 211 M103 211 L122 211" fill="none" stroke-width="4"/>
+  <path d="M72 91 L78 103 M112 91 L106 103" fill="none" stroke="#aaa" stroke-width="1.5"/>
+</g></svg></div>
+  <div class="dialogue-strip"><span class="chat incoming">“You seem different lately.”</span><span class="chat thought-chat">“I feel different lately.”</span></div></section>
   <section class="panel dark tall">
-    <div class="rain"></div><div class="crack"></div><div class="composition"><svg class="figure" viewBox="0 0 180 230"><g><circle cx="90" cy="40" r="20"/><path d="M90 60 L90 128 L65 181 M90 128 L116 181 M90 79 L57 106 M90 79 L123 104"/></g></svg><div class="panel-copy glitch"><small>09 / everything, at once</small>The future felt far away. People felt far away. Even the person I used to be felt like someone I only half remembered.<br><br>I didn't have a beautiful explanation for it.<br><br>I was tired.</div></div>
-  </section>
+    <div class="rain"></div><div class="crack"></div><div class="composition"><svg class="figure" viewBox="0 0 180 230" role="img" aria-label="Black and white manga character"><g class="manga-person" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M66 54 Q54 35 67 19 Q76 4 96 12 Q118 13 120 34 L114 57 L103 48 L75 51 Z" fill="#111" stroke-width="3"/>
+  <path d="M72 33 Q71 18 89 17 Q109 18 111 35 L108 53 Q103 68 91 68 Q77 65 72 49 Z" fill="#f2f0ea" stroke-width="2.8"/>
+  <path d="M70 34 L59 26 L69 45 L62 45 L76 54 L77 34 M108 31 L121 24 L114 42 L123 42 L108 53" fill="#111" stroke-width="2.5"/>
+  <path d="M78 42 Q84 38 89 42 M96 42 Q102 38 106 42" fill="none" stroke-width="2.5"/>
+  <path d="M82 47 L80 50 M101 47 L103 50 M87 58 Q94 61 100 57" fill="none" stroke-width="2"/>
+  <path d="M83 67 L83 78 L101 78 L101 66" fill="#f2f0ea" stroke-width="2.5"/>
+  <path d="M83 76 L68 81 L54 123 L62 151 L120 151 L130 121 L114 82 L101 76 L92 89 Z" fill="#252525" stroke-width="3"/>
+  <path d="M84 78 L92 91 L101 78 M92 91 L88 121 L98 121 L92 91" fill="#f2f0ea" stroke-width="2"/>
+  <path d="M68 84 L51 103 L39 131 Q38 138 45 140 Q51 140 54 133 L72 111 M115 84 L131 105 L140 129 Q143 137 136 140 Q130 141 127 133 L109 111" fill="#252525" stroke-width="3"/>
+  <path d="M68 147 L66 184 L60 210 L78 210 L91 165 L103 210 L121 210 L116 181 L120 147" fill="#111" stroke-width="3"/>
+  <path d="M59 211 L78 211 M103 211 L122 211" fill="none" stroke-width="4"/>
+  <path d="M72 91 L78 103 M112 91 L106 103" fill="none" stroke="#aaa" stroke-width="1.5"/>
+</g></svg><div class="panel-copy glitch"><small>09 / everything, at once</small>The future felt far away. People felt far away. Even the person I used to be felt like someone I only half remembered.<br><br>I didn't have a beautiful explanation for it.<br><br>I was tired.</div></div>
+  <div class="dialogue-strip"><span class="chat thought-chat">“I don't have an answer for everything.”</span></div></section>
   <section class="panel dark">
-    <div class="composition"><div class="panel-copy"><small>10 / the last message</small>I wanted someone to notice without making me explain every little piece of it.<br><br>But maybe I had to start by admitting it to myself.</div><svg class="figure" viewBox="0 0 180 230"><g><circle cx="90" cy="40" r="20"/><path d="M90 60 L90 128 L65 181 M90 128 L116 181 M90 79 L57 106 M90 79 L123 104"/></g><path class="thin" d="M110 25 q17 -14 30 0"/></svg></div>
-  </section>
+    <div class="composition"><div class="panel-copy"><small>10 / the last message</small>I wanted someone to notice without making me explain every little piece of it.<br><br>But maybe I had to start by admitting it to myself.</div><svg class="figure" viewBox="0 0 180 230" role="img" aria-label="Black and white manga character"><g class="manga-person" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M66 54 Q54 35 67 19 Q76 4 96 12 Q118 13 120 34 L114 57 L103 48 L75 51 Z" fill="#111" stroke-width="3"/>
+  <path d="M72 33 Q71 18 89 17 Q109 18 111 35 L108 53 Q103 68 91 68 Q77 65 72 49 Z" fill="#f2f0ea" stroke-width="2.8"/>
+  <path d="M70 34 L59 26 L69 45 L62 45 L76 54 L77 34 M108 31 L121 24 L114 42 L123 42 L108 53" fill="#111" stroke-width="2.5"/>
+  <path d="M78 42 Q84 38 89 42 M96 42 Q102 38 106 42" fill="none" stroke-width="2.5"/>
+  <path d="M82 47 L80 50 M101 47 L103 50 M87 58 Q94 61 100 57" fill="none" stroke-width="2"/>
+  <path d="M83 67 L83 78 L101 78 L101 66" fill="#f2f0ea" stroke-width="2.5"/>
+  <path d="M83 76 L68 81 L54 123 L62 151 L120 151 L130 121 L114 82 L101 76 L92 89 Z" fill="#252525" stroke-width="3"/>
+  <path d="M84 78 L92 91 L101 78 M92 91 L88 121 L98 121 L92 91" fill="#f2f0ea" stroke-width="2"/>
+  <path d="M68 84 L51 103 L39 131 Q38 138 45 140 Q51 140 54 133 L72 111 M115 84 L131 105 L140 129 Q143 137 136 140 Q130 141 127 133 L109 111" fill="#252525" stroke-width="3"/>
+  <path d="M68 147 L66 184 L60 210 L78 210 L91 165 L103 210 L121 210 L116 181 L120 147" fill="#111" stroke-width="3"/>
+  <path d="M59 211 L78 211 M103 211 L122 211" fill="none" stroke-width="4"/>
+  <path d="M72 91 L78 103 M112 91 L106 103" fill="none" stroke="#aaa" stroke-width="1.5"/>
+</g></svg></div>
+  <div class="dialogue-strip"><span class="chat outgoing">“I needed someone to hear me.”</span></div></section>
   <section class="ending">
     <div class="kicker">End of the chapter</div>
     <h2>TO BE<br>CONTINUED?</h2>
