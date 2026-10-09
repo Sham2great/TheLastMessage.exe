@@ -112,9 +112,46 @@ footer{margin-top:auto;padding-top:32px;color:#777;font-size:9px;letter-spacing:
     $("restart").addEventListener("click", window.startGame);
   }
   function renderEnding() {
+    var advice = [];
+    var title = "A note for you";
+    var opening = "Your answers are not a diagnosis or a fixed description of you. They are a small snapshot of what feels heavy right now.";
+
+    if (answers[0] === 0) {
+      advice.push("You seem to value consistency: words that match actions, care that does not vanish without explanation. Let that be a standard you look for, not something you have to beg someone to provide.");
+    } else if (answers[0] === 1) {
+      advice.push("You want to feel wanted without having to keep asking. That need is understandable. Try to notice whether care is freely offered, not only whether someone gives it after you have explained how much it hurts.");
+    }
+
+    if (answers[1] === 0) {
+      advice.push("Part of you may find it hard to believe someone could keep choosing you. You do not have to force yourself to trust immediately. Let trust grow slowly from repeated, ordinary actions rather than promises made in one emotional moment.");
+    } else if (answers[1] === 1) {
+      advice.push("It sounds exhausting to keep preparing for a goodbye before anything has even happened. When that fear appears, pause before treating it as proof. You can protect your heart without deciding the ending in advance.");
+    }
+
+    if (answers[2] === 0) {
+      advice.push("If someone goes quiet, their silence can leave questions, but it cannot measure your worth. You can reach out once for clarity if that feels right, then let their response, or lack of one, give you information about what they can offer.");
+    } else if (answers[2] === 1) {
+      advice.push("You are allowed to be tired of hoping. You do not need to turn this hurt into a lesson tonight or convince yourself everything will work out. Rest from pursuing connection if you need to, without making a permanent promise to never want it again.");
+    }
+
+    if (answers[3] === 0) {
+      title = "You can take your time";
+      advice.push("For now, make the next step small. Do something grounding, talk to someone you feel safe with, and leave the big decisions about your future for another day. Being tired is a feeling, not a deadline.");
+    } else if (answers[3] === 1) {
+      title = "Keep the standard, not the chase";
+      advice.push("The fact that you still want something genuine matters, but you do not have to chase it into existence. Look for mutual effort, honest communication, and someone who is willing to meet you halfway. You deserve to participate in a connection, not carry it alone.");
+    }
+
+    if (answers[0] === 0 && answers[3] === 1) {
+      title = "Keep the standard, not the chase";
+    } else if (answers[1] === 0 && answers[2] === 1) {
+      title = "You are allowed to be tired";
+    }
+
+    var adviceHtml = advice.map(function (item) { return "<p>" + item + "</p>"; }).join("");
     $("chapter").textContent = "END";
     $("progress").style.width = "100%";
-    $("scene").innerHTML = '<div class="scene-tag">END OF CHAPTER</div><h2>Nothing is solved.</h2><div class="art dark" role="img" aria-label="Morning light in a quiet room"><div class="window"></div><div class="person"></div><div class="caption">06:13 · THE DAY CONTINUES</div></div><div class="ending-card"><p>You have reached the end of this little walk. Whatever you chose, there was no perfect answer hidden behind the other option.</p><p>You do not have to explain every feeling perfectly for it to count. And you do not have to carry every difficult thought alone. If things feel heavy, reaching out to someone you trust is a real next step, even when you do not know what to say.</p><div class="final-line">Nothing is resolved.<br>You are still here.</div></div><div class="navrow"><button type="button" class="quiet" id="replay">Walk through it again</button><button type="button" class="primary" id="finish">Leave the room</button></div>';
+    $("scene").innerHTML = '<div class="scene-tag">A NOTE BASED ON YOUR ANSWERS</div><h2>' + title + '</h2><div class="art dark" role="img" aria-label="Morning light in a quiet room"><div class="window"></div><div class="person"></div><div class="caption">06:13 · THE DAY CONTINUES</div></div><div class="ending-card"><p>' + opening + '</p>' + adviceHtml + '<div class="final-line">You can want to be loved<br>without chasing someone to prove it.</div></div><div class="navrow"><button type="button" class="quiet" id="replay">Walk through it again</button><button type="button" class="primary" id="finish">Leave the room</button></div>';
     $("replay").addEventListener("click", window.startGame);
     $("finish").addEventListener("click", function () { $("game").classList.remove("active"); $("intro").classList.add("active"); window.scrollTo(0, 0); });
     window.scrollTo(0, 0);
